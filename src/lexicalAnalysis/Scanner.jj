@@ -10,13 +10,16 @@ options{
 
 PARSER_BEGIN(Scanner)
 package lexicalAnalysis;
+import java.io.*;
 
 public class Scanner{
+  	
 	public static void main(String args[]){
         Scanner Tokeniser;
+  
         if(args.length == 0){
-			System.out.println("Reading from standard input!");
-			Tokeniser = new Scanner(System.in);
+            System.out.println("Reading from standard input!");
+            Tokeniser = new Scanner(System.in);
 		}
 		else if(args.length == 1){
 			try{
@@ -37,186 +40,203 @@ public class Scanner{
         //Printing the tokens
 		for(Token t = getNextToken(); t.kind != EOF; t = getNextToken()){
             switch(t.kind){
-                case ID:{
-                    System.out.print("<ID("+t.image+")> ");
+                 case SELECT:{
+                    System.out.print("<SELECT> ");
                     break;
                 }
-                 case AND:{
+                 case CREATE_TABLE:{
+                    System.out.print("<CREATE_TABLE> ");
+                    break;
+                }
+                 case FROM:{
+                    System.out.print("<FROM> ");
+                    break;
+                }
+                 case JOIN:{
+                    System.out.print("<JOIN> ");
+                    break;
+                }
+                 case WHERE:{
+                    System.out.print("<WHERE> ");
+                    break;
+                }
+                 case ON:{
+                    System.out.print("<ON> ");
+                    break;
+                }
+                case GROUP:{
+                    System.out.print("<GROUP> ");
+                    break;
+                }
+                case BY:{
+                    System.out.print("<BY> ");
+                    break;
+                }
+                case UNION:{
+                    System.out.print("<UNION> ");
+                    break;
+                }
+                case AND:{
                     System.out.print("<AND> ");
                     break;
                 }
-                 case BEGIN:{
-                    System.out.print("<BEGIN> ");
+                case AS:{
+                    System.out.print("<AS> ");
                     break;
                 }
-                 case BOOLEAN:{
-                    System.out.print("<BOOLEAN> ");
+                case ASC:{
+                    System.out.print("<ASC> ");
                     break;
                 }
-                 case CONST:{
-                    System.out.print("<CONST> ");
-                    break;
-                }
-                 case DO:{
-                    System.out.print("<DO> ");
-                    break;
-                }
-                 case ELSE:{
-                    System.out.print("<ELSE> ");
-                    break;
-                }
-                case END:{
-                    System.out.print("<END> ");
-                    break;
-                }
-                case IF:{
-                    System.out.print("<IF> ");
-                    break;
-                }
-                case INTEGER:{
-                    System.out.print("<INTEGER> ");
-                    break;
-                }
-                case MAIN:{
-                    System.out.print("<MAIN> ");
-                    break;
-                }
-                case NOT:{
-                    System.out.print("<NOT> ");
+                case DESC:{
+                    System.out.print("<DESC> ");
                     break;
                 }
                 case OR:{
                     System.out.print("<OR> ");
                     break;
                 }
-                case PROGRAM:{
-                    System.out.print("<PROGRAM> ");
+                case NOT:{
+                    System.out.print("<NOT> ");
                     break;
                 }
-                case REAL:{
-                    System.out.print("<REAL> ");
+                case TRUE:{
+                    System.out.print("<TRUE> ");
                     break;
                 }
-                case RETURN:{
-                    System.out.print("<RETURN> ");
+                case FALSE:{
+                    System.out.print("<FALSE> ");
                     break;
                 }
-                case THEN:{
-                    System.out.print("<THEN> ");
+                case FILEPATH:{
+                    System.out.print("<FROM FILE> ");
                     break;
                 }
-                case VAR:{
-                    System.out.print("<VAR> ");
+                case STRING_LITERAL:{
+                    System.out.print("<STRING_LITERAL> ");
                     break;
                 }
-                case VOID:{
-                    System.out.print("<VOID> ");
+                case STRING_SLASH:{
+                    System.out.print("<STRING_SLASH> ");
                     break;
                 }
-                case WHILE:{
-                    System.out.print("<WHILE> ");
+                case STRING_QUOTE:{
+                    System.out.print("<STRING_QUOTE> ");
                     break;
                 }
-                case ADD:{
-                    System.out.print("<ADD> ");
+                case FILE_NAME:{
+                    System.out.print("<FILE_NAME> ");
                     break;
                 }
-                case SUB:{
-                    System.out.print("<SUB> ");
+                case INTEGER:{
+                    System.out.print("<INTEGER> ");
                     break;
                 }
-                case MUL:{
-                    System.out.print("<MUL> ");
+                case DATE:{
+                    System.out.print("<DATE> ");
                     break;
                 }
-                case DIV:{
-                    System.out.print("<DIV> ");
+                case FLOAT:{
+                    System.out.print("<FLOAT> ");
                     break;
                 }
-                case MOD:{
-                    System.out.print("<MOD> ");
+                case STRING:{
+                    System.out.print("<STRING> ");
                     break;
                 }
-                case EQ:{
-                    System.out.print("<EQ> ");
+                case BOOLEAN:{
+                    System.out.print("<BOOLEAN> ");
                     break;
                 }
-                case NOTEQ:{
-                    System.out.print("<NOTEQ> ");
+                case DOUBLE:{
+                    System.out.print("<DOUBLE> ");
                     break;
                 }
-                case GT:{
-                    System.out.print("<GT> ");
+                case NUMBER:{
+                    System.out.print("<NUMBER> ");
                     break;
                 }
-                case LT:{
-                    System.out.print("<LT> ");
+                case NEGATIVE:{
+                    System.out.print("<NEGATIVE> ");
                     break;
                 }
-                case LE:{
-                    System.out.print("<LE> ");
+                case EXPONENT:{
+                    System.out.print("<EXPONENT> ");
                     break;
                 }
-                case GE:{
-                    System.out.print("<GE> ");
+                case FLOATING_POINT_LITERAL:{
+                    System.out.print("<FLOATING_POINT_LITERAL> ");
                     break;
                 }
-                case LBR:{
-                    System.out.print("<LBR> ");
-                    break;
-                }
-                case RBR:{
-                    System.out.print("<RBR> ");
+                case SEMICOLON:{
+                    System.out.print("<SEMICOLON> ");
                     break;
                 }
                 case COMMA:{
                     System.out.print("<COMMA> ");
                     break;
                 }
-                case SEMIC:{
-                    System.out.print("<SEMIC> ");
-                    break;
-                }
-                case COLON:{
-                    System.out.print("<COLON> ");
-                    break;
-                }
                 case DOT:{
                     System.out.print("<DOT> ");
                     break;
                 }
-                case ASSIGN:{
-                    System.out.print("<ASSIGN> ");
+                case LESS:{
+                    System.out.print("<LESS> ");
                     break;
                 }
-                case QUES:{
-                    System.out.print("<QUES> ");
+                case LESSEQUAL:{
+                    System.out.print("<LESSEQUAL> ");
                     break;
                 }
-                case EXCLAM:{
-                    System.out.print("<EXCLAM> ");
+                case GREATER:{
+                    System.out.print("<GREATER> ");
                     break;
                 }
-                case US:{
-                    System.out.print("<US> ");
+                case GREATEREQUAL:{
+                    System.out.print("<GREATEREQUAL> ");
                     break;
                 }
-                case BOOL:{
-                    System.out.print("<BOOL("+t.image+ ")> ");
+                case EQUAL:{
+                    System.out.print("<EQUAL> ");
                     break;
                 }
-                case INT:{
-                    System.out.print("<INT("+t.image+")> ");
+                case NOTEQUAL:{
+                    System.out.print("<NOTEQUAL> ");
                     break;
                 }
-                case REALNO:{
-                    System.out.print("<REALNO("+t.image+")> ");
+                case MULTIPLY:{
+                    System.out.print("<MULTIPLY> ");
                     break;
                 }
-                case STRING:{
-                    System.out.print("<STRING("+t.image+")> ");
+                case DIVIDE:{
+                    System.out.print("<DIVIDE> ");
                     break;
                 }
+                case PLUS:{
+                    System.out.print("<PLUS> ");
+                    break;
+                }
+                case MINUS:{
+                    System.out.print("<MINUS> ");
+                    break;
+                }
+                case QUOTE:{
+                    System.out.print("<QUOTE> ");
+                    break;
+                }
+                case OPEN:{
+                    System.out.print("<OPEN> ");
+                    break;
+                }
+                case CLOSE:{
+                    System.out.print("<CLOSE> ");
+                    break;
+                }
+                case COMMENT:{
+                    System.out.print("<COMMENT> ");
+                    break;
+                }
+             
                 //Shouldn't ever be printed.
                 default:{
                     System.out.print("<DEFAULT UNFOUND: Image:"+t.image+ " | Kind:" +t.kind +">");
@@ -230,102 +250,90 @@ public class Scanner{
 }
 PARSER_END(Scanner)
 
-//Token Manager Declarations
-TOKEN_MGR_DECLS :
+// ----------------------------------------------------------------------------
+// TOKENS
+// ----------------------------------------------------------------------------
+SKIP :
 {
-	static int commentLevel = 0 ;
-}
-<COMMENT> SKIP :{
-	"/-"	{	commentLevel++;		}
-|	"-/"	{	commentLevel--;
-			    if(commentLevel == 0){  SwitchTo(DEFAULT); }
-		    }
-| 	< ~[] >
+  " "
+| "\n"
+| "\r"
+| "\t"
+| "\r\n"
 }
 
-//Skip the following elements
-SKIP : {
-    <SPACE : " ">
-|   "\t" | "\n" | "\r" | "\r\n" 
-|	"/-" { commentLevel++; } : COMMENT
-} 
-
-
-//Reserved words first
-/* 
-    I am Assuming the ImpCA Language uses keywords 'and' and 'or' to represent 
-    the boolean equivalent operations.
-    There were no examples of these operations in the given .imp files.  
-    I would have otherwise used similar syntax to java and used '&&'
-    or '||' which simply would involve replacing the keywords with these symbols.
-*/
-TOKEN : { 
-	<AND : "AND"> | <BEGIN : "BEGIN"> | <BOOLEAN : "BOOLEAN"> 
-|   <CONST : "CONST"> | <DO : "DO"> | <ELSE : "ELSE"> | <END : "END"> 
-|	<#FALSE : "FALSE"> | <IF : "IF"> | <INTEGER : "INTEGER"> 
-|   <MAIN: "MAIN"> | <NOT : "NOT"> | <OR : "OR"> | <PROGRAM : "PROGRAM"> 
-|	<REAL : "REAL"> | <RETURN : "RETURN"> | <THEN : "THEN"> 
-|   <#TRUE : "TRUE"> | <VAR : "VAR"> | <VOID : "VOID">| <WHILE : "WHILE"> 
-}
-
-//Symbols, puncutation and other Keyboard symbols
-/*
-The tokens towards the end containing # are only included in
-the String token definition, otherwise they are not used and 
-should throw a parse error outside of a string definition.
-*/
-TOKEN : {
-    <ADD : "+"> | <SUB : "-"> | <MUL : "*"> | <DIV : "/">
-|   <MOD: "%"> | <EQ : "="> | <NOTEQ : "!="> | <GT : ">"> 
-|   <LT : "<"> | <LE : "<="> | <GE : ">="> | <LBR : "(">
-|   <RBR : ")"> | <COMMA : ","> | <SEMIC : ";"> | <COLON : ":">
-|   <DOT : "."> | <ASSIGN : ":="> | <QUES : "?"> | <EXCLAM : "!">
-|   <#QUOTE : "\""> | <#BSL : "\\"> | <#US : "_">
-|   <#TILDA : "~"> | <#ACCENT : "`"> | <#AT : "@"> | <#HASH : "#">
-|   <#DLLR : "$"> | <#CARET : "^"> | <#AMP : "&"> | <#PIPE : "|">
-|   <#CBL : "{"> | <#CBR : "}"> | <#SQBL : "["> | <#SQBR : "]">
-|   <#APOST : "'"> | <#POUND : "£"> | <#EURO : "€">
-}
-
-//Real Numbers, Boolean and Integers
-/*
-Also needs to account for negative values
-*/
-TOKEN: {
-    <BOOL : <TRUE> | <FALSE>>
-|   <#DIGIT : ["0"-"9"]>
-|   <INT : (<SUB>)? ["1"-"9"] (<DIGIT>)* | "0">
-|   <#R1 : ((<SUB>)? (<DIGIT>)+ <DOT> (<DIGIT>)*)>
-|   <#R2 : ((<SUB>)? (<DIGIT>)* <DOT> (<DIGIT>)+)>
-|   <REALNO : <R1> | <R2>>
-}
-
-//Strings beginning and ending with quotes
-/*
-Strings include digits, chars, punctuation, escaped punctuation and
-The additional keyboard symbols. Valid as long as String is within
-Double Quotes.
-*/
-TOKEN : { 
-	<#CHAR : ["a"-"z","A"-"Z"]>
-|	<STRING : (<QUOTE> (<DIGIT> | <CHAR> | <ADD> | <SUB> | <MUL> | <DIV> | <MOD> 
-|                       <EQ> | <NOTEQ> | <GT> | <LT> | <LE> | <GE> | <LBR> | <RBR>
-|                       <COMMA> | <SEMIC> | <COLON> | <DOT> | <QUES> | <EXCLAM>
-|                       <US> | <TILDA> | <ACCENT> | <AT> | <HASH> | <DLLR> | <CARET>
-|                       <AMP> | <PIPE> | <CBL> | <CBR> | <SQBL> | <SQBR> | <APOST>
-|                       <POUND> | <EURO> | <SPACE>
-|                       (<BSL><QUOTE>) //Escaped quote \"
-|                       (<BSL><BSL>)   //Escaped Backslash \\
-|                       (<BSL><BSL>"N")//Escaped newline \\n
-                        )* <QUOTE>)> 	
-}
-
-TOKEN : // Identifiers
-/*
-Must start with a character and after that ID can contain 
-any combination of characters, digits and underscores
-*/
+TOKEN [ IGNORE_CASE ] : // KEYWORDS
 {
-	<#X : <CHAR>|<DIGIT>|<US>>
-|	<ID : <CHAR>(<X>)*> 	
+  < SELECT : "SELECT" >
+| < CREATE_TABLE : "CREATE TABLE" >
+| < FROM : "FROM" >
+| < JOIN : "JOIN" >
+| < WHERE : "WHERE" >
+| < ON : "ON" >
+| < GROUP : "GROUP" >
+| < BY : "BY" >
+| < UNION : "UNION" >
+| < AND : "AND" >
+| < AS : "AS" >
+| < ASC : "ASC" >
+| < DESC : "DESC" >
+| < OR : "OR" >
+| < NOT : "NOT" >
+| < TRUE : "TRUE" >
+| < FALSE : "FALSE" >
+| < FILEPATH : ("FROM FILE") >
+| < STRING_LITERAL : ([ "A"-"Z", "a"-"z" ])+ >
+| < STRING_SLASH : < STRING_LITERAL > ([ "\\", "\'" ])* >
+| < STRING_QUOTE : < STRING_LITERAL > ("\'")* >
+| < FILE_NAME : < STRING_LITERAL > (< DIVIDE > < STRING_LITERAL >)+ < DOT > < STRING_LITERAL >>
+}
+
+TOKEN [ IGNORE_CASE ] : // DATA TYPES
+{
+  < INTEGER : "int" >
+| < DATE : "date" >
+| < FLOAT : "float" >
+| < STRING : "string" >
+| < BOOLEAN : "boolean" >
+| < DOUBLE : "double" >
+}
+
+TOKEN : // LITERALS
+{
+  < NUMBER : ([ "0"-"9" ])+ >
+| < NEGATIVE : (< MINUS >)? < NUMBER >>
+| < EXPONENT : [ "e", "E" ] ([ "+", "-" ])? ([ "0"-"9" ])+ >
+| < FLOATING_POINT_LITERAL :
+    < NUMBER > < DOT > < NUMBER > (< EXPONENT >)?
+  | ([ "+", "-" ])? < NUMBER > < DOT > < NUMBER > (< EXPONENT >)?
+  | < DOT > < NUMBER > (< EXPONENT >)?
+  | ([ "+", "-" ])? < NUMBER > < DOT > < EXPONENT >
+  | < NUMBER > < EXPONENT >
+  | < NUMBER > < DOT > < NUMBER > < EXPONENT >
+  | < NUMBER > (< EXPONENT >)? >
+}
+
+TOKEN : // SEPARATORS AND OPERATORS
+{
+  < SEMICOLON : ";" >
+| < COMMA : "," >
+| < DOT : "." >
+| < LESS : "<" >
+| < LESSEQUAL : "<=" >
+| < GREATER : ">" >
+| < GREATEREQUAL : ">=" >
+| < EQUAL : "=" >
+| < NOTEQUAL : "!=" >
+| < MULTIPLY : "*" >
+| < DIVIDE : "/" >
+| < PLUS : "+" >
+| < MINUS : "-" >
+| < QUOTE : "'" >
+| < OPEN : ("(") >
+| < CLOSE : (")") >
+}
+
+SPECIAL_TOKEN :
+{
+  < COMMENT : ("USING CSV")+ >
 }
