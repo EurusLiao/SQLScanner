@@ -55,19 +55,19 @@ public static void main(String args[]){
           }
         //kind 1-18:keyword 19-24:data 25-28:literal 29-44:operator 45-49:escape character
 		for(Token t = getNextToken(); t.kind != EOF; t = getNextToken()) {
-		  if(t.kind <= 17 && t.kind >= 1) {
+		  if(t.kind <= 18 && t.kind >= 1) {
               str = "line" + t.beginLine + "-" + t.endLine + " column" +
                 t.beginColumn + "-" + t.endColumn + " is keyword(value = \"" + t + "\")\t";
             }
-          else if(t.kind <= 23 && t.kind >=18) {
+          else if(t.kind <= 25 && t.kind >=19) {
              str = "line" + t.beginLine + "-" + t.endLine + " column" +
                 t.beginColumn + "-" + t.endColumn + " is datatype(value = \"" + t + "\")\t";
           }
-          else if(t.kind <= 28 && t.kind >=24) {
+          else if(t.kind <= 30 && t.kind >=26) {
               str = "line" + t.beginLine + "-" + t.endLine + " column" +
                 t.beginColumn + "-" + t.endColumn + " is literal(value = \"" + t + "\")\t";
             }
-          else if(t.kind <= 44 && t.kind >=29) {
+          else if(t.kind <= 46 && t.kind >=31) {
               str = "line" + t.beginLine + "-" + t.endLine + " column" +
                 t.beginColumn + "-" + t.endColumn + " is operator(value = \"" + t + "\")\t";
             }
@@ -92,7 +92,10 @@ public static void main(String args[]){
 	}
 }
 PARSER_END(Scanner)
-
+SKIP :  /*跳过*/
+{
+  " "
+}
 // ----------------------------------------------------------------------------
 // TOKENS
 // ----------------------------------------------------------------------------
@@ -115,18 +118,20 @@ TOKEN [ IGNORE_CASE ] : // KEYWORDS
 | < DESC : "DESC" >
 | < OR : "OR" >
 | < NOT : "NOT" >
+| < NULL : "NULL" >
 | < TRUE : "TRUE" >
 | < FALSE : "FALSE" >
 }
 
 TOKEN [ IGNORE_CASE ] : // DATA TYPES
 {
-  < INTEGER : "int" >
+  < INT : "int" >
 | < DATE : "date" >
 | < FLOAT : "float" >
 | < STRING : "string" >
 | < BOOLEAN : "boolean" >
 | < DOUBLE : "double" >
+| < CHAR : "char" >
 }
 
 TOKEN : // LITERALS
@@ -167,8 +172,7 @@ TOKEN : // SEPARATORS AND OPERATORS
 
 TOKEN : // for out put
 {
-  < BLANK : " " >
-| < NEW_LINE:"\n">
+  < NEW_LINE:"\n">
 | < CARRIGE: "\r" >
 | < TAB : "\t" >
 | <  HuiCheLingHang : "\r\n" >
