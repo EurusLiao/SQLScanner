@@ -1,6 +1,7 @@
 /**
  * JavaCC template file created by SF JavaCC plugin 1.5.28+ wizard for JavaCC 1.5.0+
- */
+ */
+
 
 options{
 	JAVA_UNICODE_ESCAPE = true;
@@ -14,7 +15,7 @@ import java.io.*;
 
 public class Scanner{
   	
-	public static void main(String args[]){
+public static void main(String args[]){
         Scanner Tokeniser;
   
         if(args.length == 0){
@@ -38,213 +39,53 @@ public class Scanner{
 		}
 		
         //Printing the tokens
-		for(Token t = getNextToken(); t.kind != EOF; t = getNextToken()){
-            switch(t.kind){
-                 case SELECT:{
-                    System.out.print("<SELECT> ");
-                    break;
-                }
-                 case CREATE_TABLE:{
-                    System.out.print("<CREATE_TABLE> ");
-                    break;
-                }
-                 case FROM:{
-                    System.out.print("<FROM> ");
-                    break;
-                }
-                 case JOIN:{
-                    System.out.print("<JOIN> ");
-                    break;
-                }
-                 case WHERE:{
-                    System.out.print("<WHERE> ");
-                    break;
-                }
-                 case ON:{
-                    System.out.print("<ON> ");
-                    break;
-                }
-                case GROUP:{
-                    System.out.print("<GROUP> ");
-                    break;
-                }
-                case BY:{
-                    System.out.print("<BY> ");
-                    break;
-                }
-                case UNION:{
-                    System.out.print("<UNION> ");
-                    break;
-                }
-                case AND:{
-                    System.out.print("<AND> ");
-                    break;
-                }
-                case AS:{
-                    System.out.print("<AS> ");
-                    break;
-                }
-                case ASC:{
-                    System.out.print("<ASC> ");
-                    break;
-                }
-                case DESC:{
-                    System.out.print("<DESC> ");
-                    break;
-                }
-                case OR:{
-                    System.out.print("<OR> ");
-                    break;
-                }
-                case NOT:{
-                    System.out.print("<NOT> ");
-                    break;
-                }
-                case TRUE:{
-                    System.out.print("<TRUE> ");
-                    break;
-                }
-                case FALSE:{
-                    System.out.print("<FALSE> ");
-                    break;
-                }
-                case FILEPATH:{
-                    System.out.print("<FROM FILE> ");
-                    break;
-                }
-                case STRING_LITERAL:{
-                    System.out.print("<STRING_LITERAL> ");
-                    break;
-                }
-                case STRING_SLASH:{
-                    System.out.print("<STRING_SLASH> ");
-                    break;
-                }
-                case STRING_QUOTE:{
-                    System.out.print("<STRING_QUOTE> ");
-                    break;
-                }
-                case FILE_NAME:{
-                    System.out.print("<FILE_NAME> ");
-                    break;
-                }
-                case INTEGER:{
-                    System.out.print("<INTEGER> ");
-                    break;
-                }
-                case DATE:{
-                    System.out.print("<DATE> ");
-                    break;
-                }
-                case FLOAT:{
-                    System.out.print("<FLOAT> ");
-                    break;
-                }
-                case STRING:{
-                    System.out.print("<STRING> ");
-                    break;
-                }
-                case BOOLEAN:{
-                    System.out.print("<BOOLEAN> ");
-                    break;
-                }
-                case DOUBLE:{
-                    System.out.print("<DOUBLE> ");
-                    break;
-                }
-                case NUMBER:{
-                    System.out.print("<NUMBER> ");
-                    break;
-                }
-                case NEGATIVE:{
-                    System.out.print("<NEGATIVE> ");
-                    break;
-                }
-                case EXPONENT:{
-                    System.out.print("<EXPONENT> ");
-                    break;
-                }
-                case FLOATING_POINT_LITERAL:{
-                    System.out.print("<FLOATING_POINT_LITERAL> ");
-                    break;
-                }
-                case SEMICOLON:{
-                    System.out.print("<SEMICOLON> ");
-                    break;
-                }
-                case COMMA:{
-                    System.out.print("<COMMA> ");
-                    break;
-                }
-                case DOT:{
-                    System.out.print("<DOT> ");
-                    break;
-                }
-                case LESS:{
-                    System.out.print("<LESS> ");
-                    break;
-                }
-                case LESSEQUAL:{
-                    System.out.print("<LESSEQUAL> ");
-                    break;
-                }
-                case GREATER:{
-                    System.out.print("<GREATER> ");
-                    break;
-                }
-                case GREATEREQUAL:{
-                    System.out.print("<GREATEREQUAL> ");
-                    break;
-                }
-                case EQUAL:{
-                    System.out.print("<EQUAL> ");
-                    break;
-                }
-                case NOTEQUAL:{
-                    System.out.print("<NOTEQUAL> ");
-                    break;
-                }
-                case MULTIPLY:{
-                    System.out.print("<MULTIPLY> ");
-                    break;
-                }
-                case DIVIDE:{
-                    System.out.print("<DIVIDE> ");
-                    break;
-                }
-                case PLUS:{
-                    System.out.print("<PLUS> ");
-                    break;
-                }
-                case MINUS:{
-                    System.out.print("<MINUS> ");
-                    break;
-                }
-                case QUOTE:{
-                    System.out.print("<QUOTE> ");
-                    break;
-                }
-                case OPEN:{
-                    System.out.print("<OPEN> ");
-                    break;
-                }
-                case CLOSE:{
-                    System.out.print("<CLOSE> ");
-                    break;
-                }
-                case COMMENT:{
-                    System.out.print("<COMMENT> ");
-                    break;
-                }
-             
-                //Shouldn't ever be printed.
-                default:{
-                    System.out.print("<DEFAULT UNFOUND: Image:"+t.image+ " | Kind:" +t.kind +">");
-                    break;
-                }
+        String str = "";
+        String strAll = "";
+        File file = new File("sql1.out");
+        if(file.exists()) {
+          System.out.println("output file exists");
+          }
+        else {
+          try {
+            file.createNewFile();
             }
-        }
-        //Printing End of File Token after All tokens have expired
+          catch(IOException e){
+            e.printStackTrace();
+            }
+          }
+        //kind 1-19:keyword 20-25:data 26-29:literal 30-45:operator 46-50:escape character
+		for(Token t = getNextToken(); t.kind != EOF; t = getNextToken()) {
+		  if(t.kind <= 19 && t.kind >= 1) {
+              str = "line" + t.beginLine + "-" + t.endLine + " column" +
+                t.beginColumn + "-" + t.endColumn + " is keyword(value = \"" + t + "\")\t";
+            }
+          else if(t.kind <= 25 && t.kind >=20) {
+             str = "line" + t.beginLine + "-" + t.endLine + " column" +
+                t.beginColumn + "-" + t.endColumn + " is number(value = \"" + t + "\")\t";
+          }
+          else if(t.kind <= 29 && t.kind >=26) {
+              str = "line" + t.beginLine + "-" + t.endLine + " column" +
+                t.beginColumn + "-" + t.endColumn + " is literal(value = \"" + t + "\")\t";
+            }
+          else if(t.kind <= 45 && t.kind >=30) {
+              str = "line" + t.beginLine + "-" + t.endLine + " column" +
+                t.beginColumn + "-" + t.endColumn + " is operator(value = \"" + t + "\")\t";
+            }
+          else {
+            str = "escape character\t";
+            }
+            System.out.print(str+"\n");
+            strAll += str;
+		}
+        //Printing End of File Token after All tokens have expire
+        try {
+              FileWriter writer = new FileWriter(file);
+              writer.write(strAll);
+              writer.close();
+              }
+            catch(IOException e) {
+              e.printStackTrace();
+              }
         System.out.print("<EOF>");
 	}
 }
@@ -253,14 +94,7 @@ PARSER_END(Scanner)
 // ----------------------------------------------------------------------------
 // TOKENS
 // ----------------------------------------------------------------------------
-SKIP :
-{
-  " "
-| "\n"
-| "\r"
-| "\t"
-| "\r\n"
-}
+
 
 TOKEN [ IGNORE_CASE ] : // KEYWORDS
 {
@@ -281,11 +115,7 @@ TOKEN [ IGNORE_CASE ] : // KEYWORDS
 | < NOT : "NOT" >
 | < TRUE : "TRUE" >
 | < FALSE : "FALSE" >
-| < FILEPATH : ("FROM FILE") >
 | < STRING_LITERAL : ([ "A"-"Z", "a"-"z" ])+ >
-| < STRING_SLASH : < STRING_LITERAL > ([ "\\", "\'" ])* >
-| < STRING_QUOTE : < STRING_LITERAL > ("\'")* >
-| < FILE_NAME : < STRING_LITERAL > (< DIVIDE > < STRING_LITERAL >)+ < DOT > < STRING_LITERAL >>
 }
 
 TOKEN [ IGNORE_CASE ] : // DATA TYPES
@@ -333,7 +163,11 @@ TOKEN : // SEPARATORS AND OPERATORS
 | < CLOSE : (")") >
 }
 
-SPECIAL_TOKEN :
+TOKEN : // for out put
 {
-  < COMMENT : ("USING CSV")+ >
+  < BLANK : " " >
+| < NEW_LINE:"\n">
+| < CARRIGE: "\r" >
+| < TAB : "\t" >
+| <  HuiCheLingHang : "\r\n" >
 }
